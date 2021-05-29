@@ -30,6 +30,42 @@ namespace Kinder_Backend.Controllers
                 Context = "The Twelve Apostles is a collection of limestone stacks off the shore of Port Campbell National Park, by the Great Ocean Road in Victoria, Australia. Their proximity to one another has made the site a popular tourist attraction. Seven of the original eight stacks remain standing at the Twelve Apostles viewpoint, after one collapsed in July 2005.[1] Though the view from the promontory by the Twelve Apostles never included twelve stacks, additional stacks—not considered part of the Apostles group—are located to the west within the national park.[2]",
                 CreatedOn = DateTime.Now,
                 ModifiedOn = DateTime.Now
+            },new Travel{
+                Id = 3,
+                Attraction = "The Twelve Apostles",
+                Address = "墨爾本, 澳洲",
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now,
+                Context = "The Twelve Apostles is a collection of limestone stacks off the shore of Port Campbell National Park, by the Great Ocean Road in Victoria, Australia. Their proximity to one another has made the site a popular tourist attraction. Seven of the original eight stacks remain standing at the Twelve Apostles viewpoint, after one collapsed in July 2005.[1] Though the view from the promontory by the Twelve Apostles never included twelve stacks, additional stacks—not considered part of the Apostles group—are located to the west within the national park.[2]",
+                CreatedOn = DateTime.Now,
+                ModifiedOn = DateTime.Now
+            },new Travel{
+                Id = 4,
+                Attraction = "The Twelve Apostles",
+                Address = "墨爾本, 澳洲",
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now,
+                Context = "The Twelve Apostles is a collection of limestone stacks off the shore of Port Campbell National Park, by the Great Ocean Road in Victoria, Australia. Their proximity to one another has made the site a popular tourist attraction. Seven of the original eight stacks remain standing at the Twelve Apostles viewpoint, after one collapsed in July 2005.[1] Though the view from the promontory by the Twelve Apostles never included twelve stacks, additional stacks—not considered part of the Apostles group—are located to the west within the national park.[2]",
+                CreatedOn = DateTime.Now,
+                ModifiedOn = DateTime.Now
+            },new Travel{
+                Id = 5,
+                Attraction = "The Twelve Apostles",
+                Address = "墨爾本, 澳洲",
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now,
+                Context = "The Twelve Apostles is a collection of limestone stacks off the shore of Port Campbell National Park, by the Great Ocean Road in Victoria, Australia. Their proximity to one another has made the site a popular tourist attraction. Seven of the original eight stacks remain standing at the Twelve Apostles viewpoint, after one collapsed in July 2005.[1] Though the view from the promontory by the Twelve Apostles never included twelve stacks, additional stacks—not considered part of the Apostles group—are located to the west within the national park.[2]",
+                CreatedOn = DateTime.Now,
+                ModifiedOn = DateTime.Now
+            },new Travel{
+                Id = 6,
+                Attraction = "The Twelve Apostles",
+                Address = "墨爾本, 澳洲",
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now,
+                Context = "The Twelve Apostles is a collection of limestone stacks off the shore of Port Campbell National Park, by the Great Ocean Road in Victoria, Australia. Their proximity to one another has made the site a popular tourist attraction. Seven of the original eight stacks remain standing at the Twelve Apostles viewpoint, after one collapsed in July 2005.[1] Though the view from the promontory by the Twelve Apostles never included twelve stacks, additional stacks—not considered part of the Apostles group—are located to the west within the national park.[2]",
+                CreatedOn = DateTime.Now,
+                ModifiedOn = DateTime.Now
             },
         };
         public MyTravelController()
@@ -37,8 +73,10 @@ namespace Kinder_Backend.Controllers
         }
 
         [HttpGet]
-        public TravelResponse GetTravelData(){
-            return new TravelResponse{
+        public TravelResponse GetTravelData()
+        {
+            return new TravelResponse
+            {
                 Success = true,
                 TravelDetail = travels
             };
