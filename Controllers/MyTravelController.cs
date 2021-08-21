@@ -77,7 +77,6 @@ namespace Kinder_Backend.Controllers
         {
             return new TravelResponse
             {
-                Success = true,
                 TravelDetail = travels
             };
         }
