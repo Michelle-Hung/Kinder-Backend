@@ -4,6 +4,6 @@ namespace Kinder_Backend.Models
 {
     public class TravelResponse
     {
-        public List<Travel> TravelDetail { get; set; }
+        public List<TravelList> TravelList { get; set; }
     }
 }

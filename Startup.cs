@@ -33,7 +33,10 @@ namespace Kinder_Backend
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Kinder_Backend", Version = "v1" });
             });
             services.AddCors(c => {
-                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+                c.AddPolicy("AllowOrigin", options => 
+                options.AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod());
             });
         }
 
