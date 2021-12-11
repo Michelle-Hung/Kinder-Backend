@@ -7,7 +7,8 @@ using NUnit.Framework;
 
 namespace KinderBackendUnitTest;
 
-public class Tests
+[TestFixture]
+public class MyTravelControllerTest
 {
     private MyTravelController _myTravelController;
 
