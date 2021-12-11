@@ -27,4 +27,4 @@ jobs:
       uses: coverallsapp/github-action@master
       with:
         github-token: ${{ secrets.CODECOVERAGE_TOKEN }}
-        path-to-lcov: ./KinderBackendUnitestTest/TestResults/coverage.info 
+        path-to-lcov: KinderBackendUnitestTest/TestResults/coverage.info 
