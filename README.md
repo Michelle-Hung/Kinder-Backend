@@ -13,6 +13,8 @@
 4. Push
 ### How to implement code coverage in your project and display in README
 Reference: https://samlearnsazure.blog/2021/01/05/code-coverage-in-github-with-net-core/
+
+More details about `GITHUB_TOKEN`: https://docs.github.com/en/actions/security-guides/automatic-token-authentication
 1. Download coverlet package in your project `coverlet.msbuild` and `coverlet.collect` NuGet package
 2. Register in `Coverall` with GitHub account and link your repo that you want to implement code coverage
 3. Add a step for generate coverage report in yaml file
