@@ -14,34 +14,34 @@ namespace Kinder_Backend.Controllers
             new TravelList{
                 Id = 1,
                 Attraction = "淡水老街",
-                StartDate = DateTime.Now,
+                StartDate = new DateTime(2021, 9, 27),
                 PictureName = "Wuling.jpeg"
             },
 
             new TravelList{
                 Id = 2,
                 Attraction = "The Twelve Apostles",
-                StartDate = DateTime.Now,
+                StartDate = new DateTime(2021, 9, 27),
                 PictureName = "Wuling.jpeg"
             },new TravelList{
                 Id = 3,
                 Attraction = "The Twelve Apostles",
-                StartDate = DateTime.Now,
+                StartDate = new DateTime(2021, 9, 27),
                 PictureName = "Wuling.jpeg"
             },new TravelList{
                 Id = 4,
                 Attraction = "The Twelve Apostles",
-                StartDate = DateTime.Now,
+                StartDate = new DateTime(2021, 9, 27),
                 PictureName = "Wuling.jpeg"
             },new TravelList{
                 Id = 5,
                 Attraction = "The Twelve Apostles",
-                StartDate = DateTime.Now,
+                StartDate = new DateTime(2021, 9, 27),
                 PictureName = "Wuling.jpeg"
             },new TravelList{
                 Id = 6,
                 Attraction = "The Twelve Apostles",
-                StartDate = DateTime.Now,
+                StartDate = new DateTime(2021, 9, 27),
                 PictureName = "Wuling.jpeg"
             },
         };
@@ -100,7 +100,7 @@ namespace Kinder_Backend.Controllers
             },
         };
 
-        
+
         public MyTravelController()
         {
         }
@@ -117,12 +117,17 @@ namespace Kinder_Backend.Controllers
         [HttpGet("detail/{id}")]
         public TravelDetailResponse Get(int id)
         {
-            
+
             return new TravelDetailResponse
             {
                 TravelDetail = travelDetail.Where(x => x.Id == id).ToList()
             };
 
+        }
+
+        protected virtual DateTime GetNow()
+        {
+            return DateTime.Now;
         }
     }
 }
