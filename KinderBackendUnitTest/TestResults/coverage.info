@@ -1,29 +1,3 @@
-SF:/Users/michelle/Git/Kinder-Backend/Kinder-Backend/Controllers/HomeController.cs
-FN:26,System.Int32 TestItem::get_Id()
-FNDA:0,System.Int32 TestItem::get_Id()
-DA:27,0
-FN:27,System.String TestItem::get_Name()
-FNDA:0,System.String TestItem::get_Name()
-DA:28,0
-FN:18,Microsoft.AspNetCore.Mvc.IActionResult Kinder_Backend.Controllers.HomeController::GetAllData()
-FNDA:0,Microsoft.AspNetCore.Mvc.IActionResult Kinder_Backend.Controllers.HomeController::GetAllData()
-DA:19,0
-DA:20,0
-DA:21,0
-DA:22,0
-FN:11,System.Void Kinder_Backend.Controllers.HomeController::.ctor(Microsoft.Extensions.Logging.ILogger`1<Kinder_Backend.Controllers.HomeController>)
-FNDA:0,System.Void Kinder_Backend.Controllers.HomeController::.ctor(Microsoft.Extensions.Logging.ILogger`1<Kinder_Backend.Controllers.HomeController>)
-DA:12,0
-DA:13,0
-DA:14,0
-DA:15,0
-LF:10
-LH:0
-BRF:0
-BRH:0
-FNF:4
-FNH:0
-end_of_record
 SF:/Users/michelle/Git/Kinder-Backend/Kinder-Backend/Program.cs
 FN:14,System.Void Kinder_Backend.Program::Main(System.String[])
 FNDA:0,System.Void Kinder_Backend.Program::Main(System.String[])
@@ -313,36 +287,4 @@ BRF:0
 BRH:0
 FNF:5
 FNH:4
-end_of_record
-SF:/Users/michelle/Git/Kinder-Backend/Kinder-Backend/Controllers/WeatherForecastController.cs
-FN:26,System.Collections.Generic.IEnumerable`1<Kinder_Backend.WeatherForecast> Kinder_Backend.Controllers.WeatherForecastController::Get()
-FNDA:0,System.Collections.Generic.IEnumerable`1<Kinder_Backend.WeatherForecast> Kinder_Backend.Controllers.WeatherForecastController::Get()
-DA:27,0
-DA:28,0
-DA:29,0
-DA:30,0
-DA:31,0
-DA:32,0
-DA:33,0
-DA:34,0
-DA:35,0
-DA:36,0
-FN:19,System.Void Kinder_Backend.Controllers.WeatherForecastController::.ctor(Microsoft.Extensions.Logging.ILogger`1<Kinder_Backend.Controllers.WeatherForecastController>)
-FNDA:0,System.Void Kinder_Backend.Controllers.WeatherForecastController::.ctor(Microsoft.Extensions.Logging.ILogger`1<Kinder_Backend.Controllers.WeatherForecastController>)
-DA:20,0
-DA:21,0
-DA:22,0
-DA:23,0
-FN:12,System.Void Kinder_Backend.Controllers.WeatherForecastController::.cctor()
-FNDA:0,System.Void Kinder_Backend.Controllers.WeatherForecastController::.cctor()
-DA:13,0
-DA:14,0
-DA:15,0
-DA:16,0
-LF:18
-LH:0
-BRF:0
-BRH:0
-FNF:3
-FNH:0
 end_of_record
