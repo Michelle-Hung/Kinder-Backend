@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "pdnobE3oDdqY2IlWlVUWPbJlrvodGRfr1VaD5bkTa4giukJSlo/d+fLniXJ70ZyPI1f25/uCoSJTC9OwyMyuYw==",
+  "dgSpecHash": "HaZhB/5D8EQ7NMIMFlyaZeKMn2ynIq0mxo5UGC1JZl6GFtqrnfnrR5bEdILEMzGtmfp72v4l1G76vbVpibu+7A==",
   "success": true,
   "projectFilePath": "/Users/michelle/Git/Kinder-Backend/Kinder-Backend.csproj",
   "expectedPackageFiles": [
@@ -13,7 +13,10 @@
     "/Users/michelle/.nuget/packages/microsoft.identitymodel.protocols/6.10.0/microsoft.identitymodel.protocols.6.10.0.nupkg.sha512",
     "/Users/michelle/.nuget/packages/microsoft.identitymodel.protocols.openidconnect/6.10.0/microsoft.identitymodel.protocols.openidconnect.6.10.0.nupkg.sha512",
     "/Users/michelle/.nuget/packages/microsoft.identitymodel.tokens/6.10.0/microsoft.identitymodel.tokens.6.10.0.nupkg.sha512",
+    "/Users/michelle/.nuget/packages/microsoft.netcore.platforms/1.1.0/microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "/Users/michelle/.nuget/packages/microsoft.openapi/1.2.3/microsoft.openapi.1.2.3.nupkg.sha512",
+    "/Users/michelle/.nuget/packages/netstandard.library/2.0.0/netstandard.library.2.0.0.nupkg.sha512",
+    "/Users/michelle/.nuget/packages/nunit/3.13.2/nunit.3.13.2.nupkg.sha512",
     "/Users/michelle/.nuget/packages/swashbuckle.aspnetcore/6.0.0/swashbuckle.aspnetcore.6.0.0.nupkg.sha512",
     "/Users/michelle/.nuget/packages/swashbuckle.aspnetcore.swagger/6.0.0/swashbuckle.aspnetcore.swagger.6.0.0.nupkg.sha512",
     "/Users/michelle/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.0.0/swashbuckle.aspnetcore.swaggergen.6.0.0.nupkg.sha512",
