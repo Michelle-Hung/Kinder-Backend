@@ -22,5 +22,4 @@ More details about `GITHUB_TOKEN`: https://docs.github.com/en/actions/security-g
 5. Login `Coverall` and get Badage source code for README them copy it
 6. Past the code to README in your project
 
-**_NOTE:_**  If past the code to README directly, the coverage may stuck in github README. Please add `service=github` query string in the badge code.
-![image](https://user-images.githubusercontent.com/48158642/145703361-14f30095-fc82-4748-8017-c479d409a24f.png)
+**_NOTE:_**  The code coverage badge will be browser cache, it won't be updated immediately.😞
