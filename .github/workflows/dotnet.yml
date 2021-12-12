@@ -23,6 +23,7 @@ jobs:
       run: dotnet build --no-restore
   test:
     runs-on: ubuntu-latest
+    needs: [build]
     steps:
     - name: Run Unit Test and Generate coverage report
       run: dotnet test KinderBackendUnitTest/KinderBackendUnitTest.csproj --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
