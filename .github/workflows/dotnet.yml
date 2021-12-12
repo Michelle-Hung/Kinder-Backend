@@ -28,6 +28,16 @@ jobs:
         path: |
               ./Kinder-Backend/bin/Debug/net6.0/Kinder-Backend.dll
               ./KinderBackendUnitTest/bin/Debug/net6.0/KinderBackendUnitTest.dll
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: KinderBackend
+        path: |
+              ./Kinder-Backend/bin/Debug/net6.0/Kinder-Backend.dll
+              ./KinderBackendUnitTest/bin/Debug/net6.0/KinderBackendUnitTest.dll
     - name: Run Unit Test and Generate coverage report
       run: dotnet test KinderBackendUnitTest/KinderBackendUnitTest.csproj --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
     - name: Publish coverage report to coveralls.io
