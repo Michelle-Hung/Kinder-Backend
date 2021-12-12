@@ -2,10 +2,24 @@
 [![Coverage Status](https://coveralls.io/repos/github/Michelle-Hung/Kinder-Backend/badge.svg?branch=main&service=github)](https://coveralls.io/github/Michelle-Hung/Kinder-Backend?branch=main)
 ### How to migrate .net5 to .net6 in the project
 1. Download .net6 SDK
-2. Modify all version from v5.x.x to v6.0.0 in .csproj file
-3. Build project and test
-4. Modify docker file from v5.x.x to v6.0.0
-5. Build project with `docker build` and run project with `doker run` for verifying
+2. Modify `TargetFramework` from v5.x.x to v6.0.0 in .csproj file
+3. Update relative Nuget package to 6.0 with command `dotnet add <package name> --version <version>`
+4. Build project and run test
+5. Modify docker file from v5.x.x to v6.0.0
+```
+remove: 
+FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
+add: 
+FROM mcr.microsoft.com/dotnet/aspnet:6.0.0-bullseye-slim AS base
+```
+
+```
+remove:
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
+add:
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+```
+6. Build project with `docker build` and run project with `doker run` to verify
 ### How to create GitHub Actions in project
 1. Click Actions tab in your project
 2. Choose an action that you need
