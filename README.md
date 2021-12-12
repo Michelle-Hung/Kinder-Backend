@@ -11,7 +11,7 @@
 2. Choose an action that you need
 3. Do some modifying(ex. project name, folder name, etc.)
 4. Push
-### How to implement code coverage in your project and display in README
+### How to implement code coverage with Coverall in your project and display in README
 Reference: https://samlearnsazure.blog/2021/01/05/code-coverage-in-github-with-net-core/
 
 More details about `GITHUB_TOKEN`: https://docs.github.com/en/actions/security-guides/automatic-token-authentication
@@ -21,3 +21,6 @@ More details about `GITHUB_TOKEN`: https://docs.github.com/en/actions/security-g
 4. Push code and yaml
 5. Login `Coverall` and get Badage source code for README them copy it
 6. Past the code to README in your project
+
+**_NOTE:_**  If past the code to README directly, the coverage may stuck in github README. Please add `service=github` query string in the badge code.
+![image](https://user-images.githubusercontent.com/48158642/145703361-14f30095-fc82-4748-8017-c479d409a24f.png)
