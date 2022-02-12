@@ -1,3 +1,4 @@
+using Kinder_Backend.Hub;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -25,12 +26,16 @@ namespace Kinder_Backend
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Kinder_Backend", Version = "v1" });
             });
-            services.AddCors(c => {
-                c.AddPolicy("AllowOrigin", options => 
-                options.AllowAnyOrigin()
-                .AllowAnyHeader()
-                .AllowAnyMethod());
+            services.AddCors(options => {
+                options.AddDefaultPolicy( builder =>
+                    builder
+                        .WithOrigins("http://localhost:8080","http://172.20.10.3:8080")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials()
+                    );
             });
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,7 +54,7 @@ namespace Kinder_Backend
 
             app.UseAuthorization();
 
-            app.UseCors(options => options.AllowAnyOrigin());
+            app.UseCors();
 
             app.UseEndpoints(endpoints =>
             {
@@ -57,6 +62,7 @@ namespace Kinder_Backend
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapHub<ChatHub>("/chatHub");
             });
         }
     }
