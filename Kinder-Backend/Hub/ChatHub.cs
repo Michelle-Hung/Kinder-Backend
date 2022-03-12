@@ -8,6 +8,6 @@ public class ChatHub : Microsoft.AspNetCore.SignalR.Hub
 {
     public async Task SendMessageAsync(string message)
     {
-        await Clients.All.SendAsync("SendMessage", message);
+        await Clients.All.SendAsync("ReceiveMessage", message);
     }
 }
