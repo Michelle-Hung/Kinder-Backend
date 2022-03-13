@@ -6,8 +6,8 @@ namespace Kinder_Backend.Hub;
 
 public class ChatHub : Microsoft.AspNetCore.SignalR.Hub
 {
-    public async Task SendMessageAsync(string message)
+    public async Task SendMessageAsync(string message, string userName)
     {
-        await Clients.All.SendAsync("ReceiveMessage", message);
+        await Clients.All.SendAsync("ReceiveMessage", message, userName);
     }
 }
