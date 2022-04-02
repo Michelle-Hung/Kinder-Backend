@@ -33,7 +33,7 @@
             "request": "launch",
             "preLaunchTask": "docker-run: debug",
             "netCore": {
-                "appProject": "${workspaceFolder}/Kinder-Backend.csproj"
+                "appProject": "${workspaceFolder}/Kinder-Backend/Kinder-Backend.csproj"
             }
         }
     ]

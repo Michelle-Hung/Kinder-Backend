@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/Kinder-Backend.csproj",
+                "${workspaceFolder}/Kinder-Backend/Kinder-Backend.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/Kinder-Backend.csproj",
+                "${workspaceFolder}/Kinder-Backend/Kinder-Backend.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -32,7 +32,7 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/Kinder-Backend.csproj",
+                "${workspaceFolder}/Kinder-Backend/Kinder-Backend.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -47,12 +47,12 @@
             "dockerBuild": {
                 "tag": "kinderbackend:dev",
                 "target": "base",
-                "dockerfile": "${workspaceFolder}/Dockerfile",
+                "dockerfile": "${workspaceFolder}/Kinder-Backend/Dockerfile",
                 "context": "${workspaceFolder}",
                 "pull": true
             },
             "netCore": {
-                "appProject": "${workspaceFolder}/Kinder-Backend.csproj"
+                "appProject": "${workspaceFolder}/Kinder-Backend/Kinder-Backend.csproj"
             }
         },
         {
@@ -63,12 +63,12 @@
             ],
             "dockerBuild": {
                 "tag": "kinderbackend:latest",
-                "dockerfile": "${workspaceFolder}/Dockerfile",
+                "dockerfile": "${workspaceFolder}/Kinder-Backend/Dockerfile",
                 "context": "${workspaceFolder}",
                 "pull": true
             },
             "netCore": {
-                "appProject": "${workspaceFolder}/Kinder-Backend.csproj"
+                "appProject": "${workspaceFolder}/Kinder-Backend/Kinder-Backend.csproj"
             }
         },
         {
@@ -79,7 +79,7 @@
             ],
             "dockerRun": {},
             "netCore": {
-                "appProject": "${workspaceFolder}/Kinder-Backend.csproj",
+                "appProject": "${workspaceFolder}/Kinder-Backend/Kinder-Backend.csproj",
                 "enableDebugging": true
             }
         },
@@ -91,7 +91,7 @@
             ],
             "dockerRun": {},
             "netCore": {
-                "appProject": "${workspaceFolder}/Kinder-Backend.csproj"
+                "appProject": "${workspaceFolder}/Kinder-Backend/Kinder-Backend.csproj"
             }
         }
     ]
