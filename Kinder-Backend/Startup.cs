@@ -1,4 +1,6 @@
+using Google.Cloud.Firestore;
 using Kinder_Backend.Hub;
+using Kinder_Backend.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -36,6 +38,7 @@ namespace Kinder_Backend
                     );
             });
             services.AddSignalR();
+            services.AddSingleton<IFireStoreService>(_ => new FireStoreService(FirestoreDb.Create("kinder-backend")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
