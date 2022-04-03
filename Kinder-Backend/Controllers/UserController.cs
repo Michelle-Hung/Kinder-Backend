@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Kinder_Backend.Controllers;
 [ApiController]
 [Route("[controller]/[action]")]
-public class UserController
+public class UserController : ControllerBase
 {
     private readonly IFireStoreService _fireStoreService;
 
@@ -17,17 +17,21 @@ public class UserController
     }
 
     [HttpPost]
-    public async Task<HttpStatusCode> Login( LoginRequest request)
+    public async Task<LoginResponse> Login( LoginRequest request)
     {
         var userInfos = await _fireStoreService.GetUserInfos();
         var isValid = userInfos.Any(userInfo => userInfo.Name == request.Name && userInfo.Password == request.Password);
-        if (isValid)
-        {
-            return HttpStatusCode.OK;
-        }
 
-        return HttpStatusCode.Unauthorized;
+        return new LoginResponse()
+        {
+            Success = isValid
+        };
     }
+}
+
+public class LoginResponse
+{
+    public bool Success { get; set; }
 }
 
 public class LoginRequest

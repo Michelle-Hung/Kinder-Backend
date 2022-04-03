@@ -18,7 +18,6 @@ public class FireStoreService : IFireStoreService
     public async Task InsertUserInfo(UserInfo userInfo)
     {
         var docRef = _firestoreDb.Collection("users").Document();
-        var dictionary = userInfo.AsDictionary();
         await docRef.SetAsync(userInfo.AsDictionary());
     }
 
@@ -34,6 +33,7 @@ public class FireStoreService : IFireStoreService
 
 public class UserInfo
 {
+    public string Id { get; set; }
     public string Name { get; set; }
     public string Password { get; set; }
 }
