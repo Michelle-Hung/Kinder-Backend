@@ -1,5 +1,4 @@
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using Kinder_Backend.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -19,12 +18,16 @@ public class UserController : ControllerBase
     [HttpPost]
     public async Task<LoginResponse> Login( LoginRequest request)
     {
+        await _fireStoreService.ValidateUser(request);
+        
         var userInfos = await _fireStoreService.GetUserInfos();
-        var isValid = userInfos.Any(userInfo => userInfo.Name == request.Name && userInfo.Password == request.Password);
+        var user = userInfos.Single(userInfo => userInfo.Name == request.Name && userInfo.Password == request.Password);
 
+        //TODO: should have login success token
         return new LoginResponse()
         {
-            Success = isValid
+            Success = true,
+            UserId = user.Id
         };
     }
 }
@@ -32,6 +35,7 @@ public class UserController : ControllerBase
 public class LoginResponse
 {
     public bool Success { get; set; }
+    public string UserId { get; set; }
 }
 
 public class LoginRequest
