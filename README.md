@@ -2,6 +2,8 @@
 [![Coverage Status](https://coveralls.io/repos/github/Michelle-Hung/Kinder-Backend/badge.svg?branch=main&service=github)](https://coveralls.io/github/Michelle-Hung/Kinder-Backend?branch=main)
 ![Build and Test](https://github.com/Michelle-Hung/Kinder-Backend/actions/workflows/dotnet.yml/badge.svg?event=push)
 [![Build and Test Actions Status](https://github.com/Michelle-Hung/Kinder-Backend/workflows/Build%20and%20Test/badge.svg)](https://github.com/Michelle-Hung/Kinder-Backend/actions)
+[![DeepSource](https://deepsource.io/gh/Michelle-Hung/Kinder-Backend.svg/?label=active+issues&show_trend=true&token=Lm-cRM9Z78ROKEqo44eSMMsT)](https://deepsource.io/gh/Michelle-Hung/Kinder-Backend/?ref=repository-badge)
+[![DeepSource](https://deepsource.io/gh/Michelle-Hung/Kinder-Backend.svg/?label=resolved+issues&show_trend=true&token=Lm-cRM9Z78ROKEqo44eSMMsT)](https://deepsource.io/gh/Michelle-Hung/Kinder-Backend/?ref=repository-badge)
 
 
 ### How to migrate .net5 to .net6 in the project
