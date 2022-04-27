@@ -1,5 +1,9 @@
 # Kinder-Backend
 [![Coverage Status](https://coveralls.io/repos/github/Michelle-Hung/Kinder-Backend/badge.svg?branch=main&service=github)](https://coveralls.io/github/Michelle-Hung/Kinder-Backend?branch=main)
+![Build and Test](https://github.com/Michelle-Hung/Kinder-Backend/actions/workflows/dotnet.yml/badge.svg?event=push)
+[![Build and Test Actions Status](https://github.com/Michelle-Hung/Kinder-Backend/workflows/Build%20and%20Test/badge.svg)](https://github.com/Michelle-Hung/Kinder-Backend/actions)
+
+
 ### How to migrate .net5 to .net6 in the project
 1. Download .net6 SDK
 2. Modify `TargetFramework` from v5.x.x to v6.0.0 in .csproj file
