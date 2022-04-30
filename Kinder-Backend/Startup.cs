@@ -31,7 +31,7 @@ namespace Kinder_Backend
             services.AddCors(options => {
                 options.AddDefaultPolicy( builder =>
                     builder
-                        .WithOrigins("http://localhost:8080","http://172.20.10.3:8080")
+                        .WithOrigins("http://localhost:8080","http://172.20.10.3:8080","http://127.0.0.1:8080","http://172.17.0.2:8080")
                         .AllowAnyHeader()
                         .AllowAnyMethod()
                         .AllowCredentials()
