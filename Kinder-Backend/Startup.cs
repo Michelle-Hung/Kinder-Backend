@@ -1,3 +1,4 @@
+using System;
 using Google.Cloud.Firestore;
 using Kinder_Backend.Hub;
 using Kinder_Backend.Services;
@@ -38,7 +39,12 @@ namespace Kinder_Backend
                     );
             });
             services.AddSignalR();
-            services.AddSingleton<IFireStoreService>(_ => new FireStoreService(FirestoreDb.Create("kinder-backend")));
+            services.AddSingleton<IFireStoreService>(_ =>
+            {
+                const string filepath = "/Users/michelle/Downloads/kinder-backend-firebase-adminsdk-4nn6o-13977d4a3e.json";
+                Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", filepath);
+                return new FireStoreService(FirestoreDb.Create("kinder-backend"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
