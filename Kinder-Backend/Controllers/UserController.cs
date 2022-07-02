@@ -8,19 +8,19 @@ namespace Kinder_Backend.Controllers;
 [Route("[controller]/[action]")]
 public class UserController : ControllerBase
 {
-    private readonly IFireStoreService _fireStoreService;
+    private readonly IFireStoreProxy _fireStoreProxy;
 
-    public UserController( IFireStoreService fireStoreService)
+    public UserController( IFireStoreProxy fireStoreProxy)
     {
-        _fireStoreService = fireStoreService;
+        _fireStoreProxy = fireStoreProxy;
     }
 
     [HttpPost]
     public async Task<LoginResponse> Login( LoginRequest request)
     {
-        await _fireStoreService.ValidateUser(request);
+        await _fireStoreProxy.ValidateUser(request);
         
-        var userInfos = await _fireStoreService.GetUserInfos();
+        var userInfos = await _fireStoreProxy.GetUserInfos();
         var user = userInfos.Single(userInfo => userInfo.Name == request.Name && userInfo.Password == request.Password);
 
         //TODO: should have login success token
