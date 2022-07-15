@@ -41,9 +41,15 @@ public class ChatListService : IChatListService
 
         return chatLists;
     }
+
+    public async Task<List<RoomDto>> GetUserRoomInfo(string userId)
+    {
+        return await _chatRoomRepository.GetUserRoomInfo(userId);
+    }
 }
 
 public interface IChatListService
 {
     Task<List<ChatList>> GetChatList(string userId);
+    Task<List<RoomDto>> GetUserRoomInfo(string userId);
 }
