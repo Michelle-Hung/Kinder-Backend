@@ -48,15 +48,17 @@ public class FireStoreProxy : IFireStoreProxy
         return userInfos;
     }
 
-    public async Task ValidateUser(LoginRequest request)
+    public async Task<UserInfo> GetUserInfo(LoginRequest request)
     {
         var userQuery = _firestoreDb.Collection("users").WhereEqualTo("Name",request.Name).WhereEqualTo("Password", request.Password);
         var userSnapshotAsync = await userQuery.GetSnapshotAsync();
-        var isValid = userSnapshotAsync.Documents.Select(x => x.ToDictionary().ToObject<UserInfo>()).Any();
-        if (!isValid)
+        var userInfo = userSnapshotAsync.Documents.Select(x => x.ToDictionary().ToObject<UserInfo>()).FirstOrDefault();
+        if (userInfo == null)
         {
             throw new AuthenticationException();
         }
+
+        return userInfo;
     }
 }
 
@@ -136,7 +138,7 @@ public interface IFireStoreProxy
 {
     Task InsertUserInfo(UserInfo userInfo);
     Task<List<UserInfo>> GetUserInfos();
-    Task ValidateUser(LoginRequest request);
+    Task<UserInfo> GetUserInfo(LoginRequest request);
     Task Insert<T>(T data, string tableName);
     Task<List<T>> Get<T>(string tableName) where T : class, new();
 }

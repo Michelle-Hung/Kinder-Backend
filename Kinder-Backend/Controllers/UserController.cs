@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Threading.Tasks;
 using Kinder_Backend.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -8,26 +7,22 @@ namespace Kinder_Backend.Controllers;
 [Route("[controller]/[action]")]
 public class UserController : ControllerBase
 {
-    private readonly IFireStoreProxy _fireStoreProxy;
+    private readonly IUserService _userService;
 
-    public UserController( IFireStoreProxy fireStoreProxy)
+    public UserController(IUserService userService)
     {
-        _fireStoreProxy = fireStoreProxy;
+        _userService = userService;
     }
 
     [HttpPost]
     public async Task<LoginResponse> Login( LoginRequest request)
     {
-        await _fireStoreProxy.ValidateUser(request);
-        
-        var userInfos = await _fireStoreProxy.GetUserInfos();
-        var user = userInfos.Single(userInfo => userInfo.Name == request.Name && userInfo.Password == request.Password);
-
+        var userInfo = await _userService.GetUserInfo(request);
         //TODO: should have login success token
         return new LoginResponse()
         {
             Success = true,
-            UserId = user.Id
+            UserId =userInfo.Id 
         };
     }
 }

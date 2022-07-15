@@ -49,6 +49,7 @@ namespace Kinder_Backend
             });
             services.AddSingleton<IChatListService,ChatListService>();
             services.AddSingleton<IChatRoomRepository, ChatRoomRepository>();
+            services.AddSingleton<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
