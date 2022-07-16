@@ -17,12 +17,12 @@ public class UserController : ControllerBase
     [HttpPost]
     public async Task<LoginResponse> Login( LoginRequest request)
     {
-        var userInfo = await _userService.GetUserInfo(request);
+        var accountInfo = await _userService.GetAccountInfo(request);
         //TODO: should have login success token
         return new LoginResponse()
         {
             Success = true,
-            UserId =userInfo.Id 
+            UserId =accountInfo.Id 
         };
     }
 }
