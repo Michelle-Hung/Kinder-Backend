@@ -47,8 +47,6 @@ namespace Kinder_Backend
                 Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", filepath);
                 return new FireStoreProxy(FirestoreDb.Create("kinder-backend"));
             });
-            services.AddSingleton<IChatListService,ChatListService>();
-            services.AddSingleton<IChatRoomRepository, ChatRoomRepository>();
             services.AddSingleton<IUserService, UserService>();
             services.AddSingleton<IChatService, ChatService>();
         }
