@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Google.Cloud.Firestore;
 using Kinder_Backend.Models;
 using Kinder_Backend.Repository;
 
@@ -42,14 +44,30 @@ public class ChatListService : IChatListService
         return chatLists;
     }
 
-    public async Task<List<RoomDto>> GetUserRoomInfo(string userId)
+    public async Task<List<RoomInfo>> GetUserRoomInfo(string userId)
     {
-        return await _chatRoomRepository.GetUserRoomInfo(userId);
+        var roomInfoDtos = await _chatRoomRepository.GetRoomInfosByUser(userId);
+        var roomInfos = roomInfoDtos.Select(x => new RoomInfo
+        {
+            Id = x.Id,
+            Name = x.Name,
+            Type = x.RoomType,
+            CreatedOn = x.CreateTime.ToDateTime(),
+        });
+        return roomInfos.ToList();
     }
+}
+
+public class RoomInfo
+{
+    public string Id { get; set; }
+    public string Name { get; set; }
+    public EnumRoomType Type { get; set; }
+    public DateTime CreatedOn { get; set; }
 }
 
 public interface IChatListService
 {
     Task<List<ChatList>> GetChatList(string userId);
-    Task<List<RoomDto>> GetUserRoomInfo(string userId);
+    Task<List<RoomInfo>> GetUserRoomInfo(string userId);
 }

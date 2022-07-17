@@ -10,5 +10,5 @@ public interface IChatRoomRepository
     Task<IEnumerable<RoomDetailDto>> GetRoomDetailsByRoomId(List<string> roomIds);
     Task<IEnumerable<RoomDto>> GetRoomsByIds(List<string> roomIds);
     Task<List<string>> GetRoomIdsFromChat(string userId);
-    Task<List<RoomDto>> GetUserRoomInfo(string userId);
+    Task<IEnumerable<RoomDto>> GetRoomInfosByUser(string userId);
 }

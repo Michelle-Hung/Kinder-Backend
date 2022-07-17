@@ -9,17 +9,19 @@ namespace Kinder_Backend.Controllers;
 [ApiController]
 [Route("[controller]/[action]")]
 public class ChatController : ControllerBase
-{
+ {
     private readonly IChatListService _chatListService;
+    private readonly IChatService _chatService;
 
-    public ChatController(IChatListService chatListService)
+    public ChatController(IChatListService chatListService, IChatService chatService)
     {
         _chatListService = chatListService;
+        _chatService = chatService;
     }
-    [HttpPost]
-    public async Task<List<RoomDto>> GetRooms( string userId )
+    [HttpGet]
+    public async Task<ContactInfo> GetContacts(string userId)
     {
-        return await _chatListService.GetUserRoomInfo(userId);
+        return await _chatService.GetContacts(userId);
     }
 
     //TODO: should use login success token
@@ -28,4 +30,15 @@ public class ChatController : ControllerBase
     {
         return _chatListService.GetChatList(userId);
     }
+}
+
+public class ContactInfo
+{
+    public List<FriendInfo> Friends { get; set; }
+}
+
+public class FriendInfo
+{
+    public string UserId { get; set; }
+    public string DisplayName { get; set; }
 }

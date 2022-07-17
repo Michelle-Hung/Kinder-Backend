@@ -3,7 +3,7 @@ using Kinder_Backend.Controllers;
 
 namespace Kinder_Backend.Services;
 
-public interface IUserService
+public interface IChatService
 {
-    Task<AccountInfoDto> GetAccountInfo(LoginRequest request);
+    Task<ContactInfo> GetContacts(string userId);
 }

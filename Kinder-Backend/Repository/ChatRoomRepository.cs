@@ -31,9 +31,9 @@ public class ChatRoomRepository : IChatRoomRepository
         return chatDtos.Where(x => x.UserId == userId).Select(x => x.RoomId).ToList();
     }
 
-    public async Task<List<RoomDto>> GetUserRoomInfo(string userId)
+    public async Task<IEnumerable<RoomDto>> GetRoomInfosByUser(string userId)
     {
         var roomIds = (await _fireStoreProxy.Get<ChatDto>("Chats")).Where(x => x.UserId == userId).Select(x => x.RoomId).ToList();
-        return (await _fireStoreProxy.Get<RoomDto>("rooms")).Where(x => roomIds.Contains(x.Id)).ToList();
+        return (await _fireStoreProxy.Get<RoomDto>("rooms")).Where(x => roomIds.Contains(x.Id));
     }
 }

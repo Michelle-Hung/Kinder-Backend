@@ -12,7 +12,7 @@ public class UserService : IUserService
         _fireStoreProxy = fireStoreProxy;
     }
 
-    public async Task<AccountInfo> GetAccountInfo(LoginRequest request)
+    public async Task<AccountInfoDto> GetAccountInfo(LoginRequest request)
     {
         var accountInfo = await _fireStoreProxy.GetAccountInfo(request);
         return accountInfo;

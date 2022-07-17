@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Authentication;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Google.Cloud.Firestore;
@@ -32,35 +33,57 @@ public class FireStoreProxy : IFireStoreProxy
         return snapshotAsync.Documents.Select(x => x.ToDictionary().ToObject<T>()).ToList();
     }
 
+    public async Task<IEnumerable<ProfileDto>> GetFriendsByUser(string userId)
+    {
+        var contactInfoDto = (await _firestoreDb.Collection("Contact").WhereEqualTo("AccountId", userId).GetSnapshotAsync()).Documents.Select(x => x.ToDictionary().ToObject<ContactInfoDto>()).First();
+        var profileDtos = (await _firestoreDb.Collection("Profile").WhereIn("AccountId", contactInfoDto.Friends)
+            .GetSnapshotAsync()).Documents.Select(x => x.ToDictionary().ToObject<ProfileDto>());
 
-    public async Task InsertUserInfo(UserInfo userInfo)
+        return profileDtos;
+    }
+
+    public async Task InsertUserInfo(AccountInfoDto accountInfoDto)
     {
         var docRef = _firestoreDb.Collection("users").Document();
-        await docRef.SetAsync(userInfo.AsDictionary());
+        await docRef.SetAsync(accountInfoDto.AsDictionary());
     }
 
-    public async Task<List<UserInfo>> GetUserInfos()
+    public async Task<List<AccountInfoDto>> GetAccountInfos()
     {
-        var usersRef = _firestoreDb.Collection("users");
-        var snapshot = await usersRef.GetSnapshotAsync();
-        var userInfos = snapshot.Documents.Select(x => x.ToDictionary().ToObject<UserInfo>()).ToList();
-        
-        return userInfos;
+        return (await _firestoreDb.Collection("Account").GetSnapshotAsync()).Documents.Select(x => x.ToDictionary().ToObject<AccountInfoDto>()).ToList();
     }
 
-    public async Task<UserInfo> GetUserInfo(LoginRequest request)
+    public async Task<AccountInfoDto> GetAccountInfo(LoginRequest request)
     {
-        var userQuery = _firestoreDb.Collection("users").WhereEqualTo("Name",request.Name).WhereEqualTo("Password", request.Password);
-        var userSnapshotAsync = await userQuery.GetSnapshotAsync();
-        var userInfo = userSnapshotAsync.Documents.Select(x => x.ToDictionary().ToObject<UserInfo>()).FirstOrDefault();
-        if (userInfo == null)
+        var accountQuery = _firestoreDb.Collection("Account").WhereEqualTo("LoginName",request.Name).WhereEqualTo("Passwords", request.Password);
+        var accountInfo = (await accountQuery.GetSnapshotAsync()).Documents.Select(x => x.ToDictionary().ToObject<AccountInfoDto>()).FirstOrDefault();
+        if (accountInfo == null)
         {
             throw new AuthenticationException();
         }
 
-        return userInfo;
+        return accountInfo;
     }
 }
+[FirestoreData] 
+public class ProfileDto
+{
+    [FirestoreProperty]
+    public string AccountId { get; set; }
+    [FirestoreProperty]
+    public string DisplayName { get; set; }
+    [FirestoreProperty]
+    public string Email { get; set; }
+}
+
+[FirestoreData]
+public class ContactInfoDto
+{
+    [FirestoreProperty]
+    public string AccountId { get; set; }
+    [FirestoreProperty]
+    public List<object> Friends { get; set; }    
+ }
 
 [FirestoreData]
 public class ChatListDto
@@ -124,21 +147,22 @@ public class ChatDto
 }
 
 [FirestoreData]
-public class UserInfo
+public class AccountInfoDto
 {
     [FirestoreProperty]
     public string Id { get; set; }
     [FirestoreProperty]
-    public string Name { get; set; }
+    public string LoginName { get; set; }
     [FirestoreProperty]
-    public string Password { get; set; }
+    public string Passwords { get; set; }
 }
 
 public interface IFireStoreProxy
 {
-    Task InsertUserInfo(UserInfo userInfo);
-    Task<List<UserInfo>> GetUserInfos();
-    Task<UserInfo> GetUserInfo(LoginRequest request);
+    Task InsertUserInfo(AccountInfoDto accountInfoDto);
+    Task<List<AccountInfoDto>> GetAccountInfos();
+    Task<AccountInfoDto> GetAccountInfo(LoginRequest request);
     Task Insert<T>(T data, string tableName);
     Task<List<T>> Get<T>(string tableName) where T : class, new();
+    Task<IEnumerable<ProfileDto>> GetFriendsByUser(string userId);
 }
