@@ -33,12 +33,25 @@ public class FireStoreProxy : IFireStoreProxy
         return snapshotAsync.Documents.Select(x => x.ToDictionary().ToObject<T>()).ToList();
     }
 
-    public async Task<IEnumerable<ProfileDto>> GetFriendsByUser(string userId)
+    public async Task<IEnumerable<ProfileDto>> GetContactProfiles(string userId)
     {
         var contactInfoDto = (await _firestoreDb.Collection("Contact").WhereEqualTo("AccountId", userId).GetSnapshotAsync()).Documents.Select(x => x.ToDictionary().ToObject<ContactInfoDto>()).First();
         var profileDtos = (await _firestoreDb.Collection("Profile").WhereIn("AccountId", contactInfoDto.Friends)
             .GetSnapshotAsync()).Documents.Select(x => x.ToDictionary().ToObject<ProfileDto>());
 
+        return profileDtos;
+    }
+
+    public async Task<IEnumerable<MessageDto>> GetMessagesByUser(string userId)
+    {
+        var messageDtos = (await _firestoreDb.Collection("Message").GetSnapshotAsync()).Documents.Select(x =>
+            x.ToDictionary().ToObject<MessageDto>());
+        return messageDtos.Where(x => x.SendBy == userId || x.SendTo == userId);
+    }
+
+    public async Task<IEnumerable<ProfileDto>> GetProfiles()
+    {
+        var profileDtos = (await _firestoreDb.Collection("Profile").GetSnapshotAsync()).Documents.Select(x => x.ToDictionary().ToObject<ProfileDto>());
         return profileDtos;
     }
 
@@ -86,14 +99,16 @@ public class ContactInfoDto
  }
 
 [FirestoreData]
-public class ChatListDto
+public class MessageDto
 {
     [FirestoreProperty]
-    public string UserId { get; set; }
+    public string MessageId { get; set; }
     [FirestoreProperty]
-    public string RoomId { get; set; }
+    public string SendBy { get; set; }
     [FirestoreProperty]
-    public string Message { get; set; }
+    public string SendTo { get; set; }
+    [FirestoreProperty]
+    public string Content { get; set; }
     [FirestoreProperty]
     public Timestamp CreatedOn { get; set; }
 }
@@ -164,5 +179,7 @@ public interface IFireStoreProxy
     Task<AccountInfoDto> GetAccountInfo(LoginRequest request);
     Task Insert<T>(T data, string tableName);
     Task<List<T>> Get<T>(string tableName) where T : class, new();
-    Task<IEnumerable<ProfileDto>> GetFriendsByUser(string userId);
+    Task<IEnumerable<ProfileDto>> GetContactProfiles(string userId);
+    Task<IEnumerable<MessageDto>> GetMessagesByUser(string userId);
+    Task<IEnumerable<ProfileDto>> GetProfiles();
 }

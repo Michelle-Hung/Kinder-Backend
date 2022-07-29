@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Kinder_Backend.Controllers;
 
@@ -5,5 +6,6 @@ namespace Kinder_Backend.Services;
 
 public interface IChatService
 {
-    Task<ContactInfo> GetContacts(string userId);
+    Task<ContactInfo> GetContactInfos(string userId);
+    Task<List<ChatInfo>> GetChatInfos(string userId);
 }
