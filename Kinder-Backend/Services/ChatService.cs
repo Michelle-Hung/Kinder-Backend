@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -30,24 +31,34 @@ public class ChatService : IChatService
 
     public async Task<List<ChatInfo>> GetChatInfos(string userId)
     {
-        var messageDtos = await _fireStoreProxy.GetMessagesByUser(userId);
-        
-        var profileDtos = await _fireStoreProxy.GetProfiles();
-
-        return messageDtos.Select(messageDto => new ChatInfo
-        {
-            Message = messageDto.Content,
-            MessageTime = messageDto.CreatedOn.ToDateTime(),
-            SendTo = new UserInfo
-            {
-                UserId = messageDto.SendTo,
-                DisplayName = profileDtos.Single(x => x.AccountId == messageDto.SendTo).DisplayName
-            },
-            SendBy = new UserInfo
-            {
-                UserId = messageDto.SendBy,
-                DisplayName = profileDtos.Single(x => x.AccountId == messageDto.SendBy).DisplayName 
-            }
-        }).OrderBy(x => x.MessageTime).ToList();
+        return (await _fireStoreProxy.GetChatInfosByUserAsync(userId)).ToList();
     }
+
+    public async Task<List<ChatListInfo>> GetRecentChatListInfosAsync(string userId)
+    {
+        var channelDtos = await _fireStoreProxy.GetChannelsAsync(userId);
+        var chatInfos = await _fireStoreProxy.GetChatInfosByUserAsync(userId);
+
+        return (from channelDto in channelDtos
+            let latestChatInfo = channelDto.MessageIds
+                .Join(chatInfos, messageId => messageId, chatInfo => chatInfo.MessageId, (_, chatInfo) => chatInfo)
+                .OrderByDescending(x => x.MessageTime).First()
+            select new ChatListInfo()
+            {
+                ChannelId = channelDto.Id,
+                ChannelCreatedOn = channelDto.CreatedOn.ToDateTime(),
+                ChatInfo = latestChatInfo,
+                ChannelName = channelDto.Name,
+                ChannelType = channelDto.Type
+            }).ToList();
+    }
+}
+
+public class ChatListInfo
+{
+    public string ChannelId { get; set; }
+    public string ChannelName { get; set; }
+    public string ChannelType { get; set; }
+    public DateTime ChannelCreatedOn { get; set; }
+    public ChatInfo ChatInfo { get; set; }
 }

@@ -23,6 +23,12 @@ public class ChatController : ControllerBase
     }
 
     [HttpGet]
+    public async Task<List<ChatListInfo>> GetRecentChatListInfos(string userId)
+    {
+        return await _chatService.GetRecentChatListInfosAsync(userId);
+    }
+
+    [HttpGet]
     public async Task<List<ChatInfo>> GetChatInfos (string userId)
     {
         return await _chatService.GetChatInfos(userId);
@@ -35,6 +41,7 @@ public class ChatInfo
     public DateTime MessageTime { get; set; }
     public UserInfo SendTo { get; set; }
     public UserInfo SendBy { get; set; }
+    public string MessageId { get; set; }
 }
 
 public class ContactInfo

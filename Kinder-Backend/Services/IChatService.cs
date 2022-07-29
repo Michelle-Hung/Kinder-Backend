@@ -8,4 +8,5 @@ public interface IChatService
 {
     Task<ContactInfo> GetContactInfos(string userId);
     Task<List<ChatInfo>> GetChatInfos(string userId);
+    Task<List<ChatListInfo>> GetRecentChatListInfosAsync(string userId);
 }

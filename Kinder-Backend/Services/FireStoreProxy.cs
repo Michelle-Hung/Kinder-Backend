@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Authentication;
-using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Google.Cloud.Firestore;
@@ -42,17 +40,47 @@ public class FireStoreProxy : IFireStoreProxy
         return profileDtos;
     }
 
-    public async Task<IEnumerable<MessageDto>> GetMessagesByUser(string userId)
+    private async Task<IEnumerable<MessageDto>> GetMessagesByUserAsync(string userId)
     {
         var messageDtos = (await _firestoreDb.Collection("Message").GetSnapshotAsync()).Documents.Select(x =>
             x.ToDictionary().ToObject<MessageDto>());
         return messageDtos.Where(x => x.SendBy == userId || x.SendTo == userId);
     }
+    
+    public async Task<IEnumerable<ChatInfo>> GetChatInfosByUserAsync(string userId)
+    {
+        var messagesByUserAsync = await GetMessagesByUserAsync(userId);
+        var profileDtos = await GetProfilesAsync();
+        var chatInfos = messagesByUserAsync.Select(messageDto => new ChatInfo
+        {
+            MessageId = messageDto.MessageId,
+            Message = messageDto.Content,
+            MessageTime = messageDto.CreatedOn.ToDateTime(),
+            SendTo = new UserInfo
+            {
+                UserId = messageDto.SendTo,
+                DisplayName = profileDtos.Single(x => x.AccountId == messageDto.SendTo).DisplayName
+            },
+            SendBy = new UserInfo
+            {
+                UserId = messageDto.SendBy,
+                DisplayName = profileDtos.Single(x => x.AccountId == messageDto.SendBy).DisplayName
+            }
+        });
+        return chatInfos;
+    }
 
-    public async Task<IEnumerable<ProfileDto>> GetProfiles()
+    private async Task<IEnumerable<ProfileDto>> GetProfilesAsync()
     {
         var profileDtos = (await _firestoreDb.Collection("Profile").GetSnapshotAsync()).Documents.Select(x => x.ToDictionary().ToObject<ProfileDto>());
         return profileDtos;
+    }
+
+    public async Task<IEnumerable<ChannelDto>> GetChannelsAsync(string userId)
+    {
+        var channelDtos = (await _firestoreDb.Collection("Channel").WhereArrayContains("Members", userId).GetSnapshotAsync()).Documents.Select(x =>
+            x.ToDictionary().ToObject<ChannelDto>());
+        return channelDtos;
     }
 
     public async Task InsertUserInfo(AccountInfoDto accountInfoDto)
@@ -78,6 +106,22 @@ public class FireStoreProxy : IFireStoreProxy
         return accountInfo;
     }
 }
+
+[FirestoreData]
+public class ChannelDto
+{
+    [FirestoreProperty]
+    public string Id { get; set; }
+    [FirestoreProperty]
+    public List<object> MessageIds { get; set; }
+    [FirestoreProperty]
+    public string Name { get; set; }
+    [FirestoreProperty]
+    public string Type { get; set; }
+    [FirestoreProperty]
+    public Timestamp CreatedOn { get; set; }
+}
+
 [FirestoreData] 
 public class ProfileDto
 {
@@ -180,6 +224,6 @@ public interface IFireStoreProxy
     Task Insert<T>(T data, string tableName);
     Task<List<T>> Get<T>(string tableName) where T : class, new();
     Task<IEnumerable<ProfileDto>> GetContactProfiles(string userId);
-    Task<IEnumerable<MessageDto>> GetMessagesByUser(string userId);
-    Task<IEnumerable<ProfileDto>> GetProfiles();
+    Task<IEnumerable<ChannelDto>> GetChannelsAsync(string userId);
+    Task<IEnumerable<ChatInfo>> GetChatInfosByUserAsync(string userId);
 }
