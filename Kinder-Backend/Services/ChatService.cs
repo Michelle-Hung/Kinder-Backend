@@ -48,7 +48,7 @@ public class ChatService : IChatService
                 ChannelId = channelDto.Id,
                 ChannelCreatedOn = channelDto.CreatedOn.ToDateTime(),
                 ChatInfo = latestChatInfo,
-                ChannelName = channelDto.Name,
+                ChannelName = string.Equals(channelDto.Type, "Direct") ? latestChatInfo.SendTo.DisplayName : channelDto.Name ,
                 ChannelType = channelDto.Type
             }).ToList();
     }
